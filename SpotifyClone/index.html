@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Spotify</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
@@ -21,8 +22,10 @@
       src="https://kit.fontawesome.com/dde52a44b7.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
   </head>
   <body>
+    <div class="backdrop" id="backdrop"></div>
     <nav class="top">
       <div><i class="fa-brands fa-spotify fa-2x"></i></div>
       <div class="home">
@@ -30,8 +33,13 @@
           <i class="fa-solid fa-house fa-xl"></i>
         </div>
         <div class="row">
-          <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-          <input type="text" placeholder="What do you want to play?" />
+          <i class="fa-solid fa-magnifying-glass fa-xl" id="searchButton"></i>
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            id="searchInput"
+          />
+          <div id="results" class="results hidden"></div>
           <i class="fa-solid fa-box-archive fa-xl"></i>
         </div>
       </div>
@@ -85,7 +93,7 @@
           <p>Artist</p>
         </div>
       </div>
-      <div class="desc">
+      <div class="desc" id="playlist">
         <div class="square">
           <img src="Assets/p4royal.jpg" />
         </div>
@@ -94,208 +102,242 @@
           <p>Playlist</p>
         </div>
       </div>
-    </nav>
-    <section class="middle">
-      <div class="begin">
-        <div class="square3"><img src="Assets/p4royal.jpg" /></div>
-        <div class="playlist">
-          <p>Playlist</p>
-          <h1>Jam</h1>
-          <p>B.<span>64 songs, about 4 hr</span></p>
+      <div class="playlists" id="playlistList">
+        <!-- Existing playlists will be dynamically added here -->
+      </div>
+      <div class="desc" id="addPlayBtn">
+        <div class="square">
+          <div><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="names hidden">
+          <p>Create a Playlist</p>
         </div>
       </div>
-      <div class="rest">
-        <div class="bar">
-          <div>
-            <div class="circle2"><i class="fa-solid fa-play fa-lg"></i></div>
-            <i class="fa-solid fa-ellipsis"></i>
+    </nav>
+    <div class="listofplay">
+    </div>
+    <div class="playlist-pop" id="playlistPopup">
+      <div class="pop-content">
+        <h3>Create New Playlist</h3>
+        <div id="createNew">
+          <div class="image-upload-box" id="imageUploadBox">
+            <input type="file" id="playlistImageFile" accept="image/*" />
+            <div id="imagePreviewText">Click to select image</div>
+            <img id="imagePreview" src="" alt="" value="" />
           </div>
-          <div>
-            <p>List</p>
-            <i class="fa-solid fa-list-ul"></i>
+          <input type="text" id="playlistName" placeholder="Playlist Name" />
+        </div>
+        <div class="btns">
+          <button id="createPlaylistBtn">Create Playlist</button>
+          <button id="closePopup">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <section class="middle">
+      <div id="psection"></div>
+      <div id="main-display"></div>
+      <div class="everything">
+        <div class="begin">
+          <div class="square3"><img src="Assets/p4royal.jpg" /></div>
+          <div class="playlist">
+            <p>Playlist</p>
+            <h1>Jam</h1>
+            <p>B.<span>64 songs, about 4 hr</span></p>
           </div>
         </div>
-        <div class="row1">
-          <p>#</p>
-          <p>Title</p>
-          <p>Album</p>
-          <p>Date added</p>
-          <i class="fa-regular fa-clock"></i>
-        </div>
-        <div class="songRows">
-          <div class="songs">
-            <p>1</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/pgolden.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Time To Make History</h4>
-                <p>Shihoko Hirata</p>
-              </div>
+        <div class="rest">
+          <div class="bar">
+            <div>
+              <div class="circle2"><i class="fa-solid fa-play fa-lg"></i></div>
+              <i class="fa-solid fa-ellipsis"></i>
             </div>
-            <p>Persona 4</p>
-            <p>Aug 20, 2024</p>
-            <p>2:31</p>
+            <div>
+              <p>List</p>
+              <i class="fa-solid fa-list-ul"></i>
+            </div>
           </div>
-          <div class="songs">
-            <p>2</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/lofi.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Reading Sounds</h4>
-                <p>lofi-Girl</p>
-              </div>
-            </div>
-            <p>Study</p>
-            <p>Feb 19, 2025</p>
-            <p>10:00</p>
-          </div>
-          <div class="songs">
-            <p>3</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p4img.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Rivers in the Desert</h4>
-                <p>Lyn</p>
-              </div>
-            </div>
-            <p>Persona 5</p>
-            <p>Feb 19, 2025</p>
-            <p>5:15</p>
-          </div>
-          <div class="songs">
-            <p>4</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p4royal.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Take Over</h4>
-                <p>Lyn</p>
-              </div>
-            </div>
-            <p>Persona 5</p>
-            <p>Feb 19, 2025</p>
-            <p>3:46</p>
-          </div>
-          <div class="songs">
-            <p>5</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p3img.jpg" /></div>
-              <div class="txtcon3">
-                <h4>It's Going Down</h4>
-                <p>Azumi</p>
-              </div>
-            </div>
-            <p>Persona 3 Reload</p>
-            <p>Feb 17, 2025</p>
-            <p>3:06</p>
-          </div>
-          <div class="songs">
-            <p>6</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p4img.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Phantom</h4>
-                <p>ATLUS Sound Team</p>
-              </div>
-            </div>
-            <p>Sound Team</p>
-            <p>Feb 18, 2025</p>
-            <p>2:18</p>
-          </div>
-          <div class="songs">
-            <p>7</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/pgolden.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Reach Out To The Truth</h4>
-                <p>Shihoko Hirata</p>
-              </div>
-            </div>
-            <p>Persona 4</p>
-            <p>Feb 16, 2025</p>
-            <p>2:31</p>
-          </div>
-          <div class="songs">
-            <p>8</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p3img.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Color your Night</h4>
-                <p>Azumi</p>
-              </div>
-            </div>
-            <p>Persona 3 Reload</p>
+          <div class="row1">
+            <p>#</p>
+            <p>Title</p>
+            <p>Album</p>
             <p>Date added</p>
-            <p>3:47</p>
+            <i class="fa-regular fa-clock"></i>
           </div>
-          <div class="songs">
-            <p>9</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p4img.jpg" /></div>
-              <div class="txtcon3">
-                <h4>My Homie</h4>
-                <p>ATLUS Sound Team</p>
+          <div class="songRows">
+            <div class="songs">
+              <p>1</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/pgolden.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Time To Make History</h4>
+                  <p>Shihoko Hirata</p>
+                </div>
               </div>
+              <p>Persona 4</p>
+              <p>Aug 20, 2024</p>
+              <p>2:31</p>
             </div>
-            <p>Sound Team</p>
-            <p>Feb 15, 2025</p>
-            <p>3:22</p>
-          </div>
-          <div class="songs">
-            <p>10</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/lofi.jpg" /></div>
-              <div class="txtcon3">
-                <h4>White Noise</h4>
-                <p>lofi-Girl</p>
+            <div class="songs">
+              <p>2</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/lofi.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Reading Sounds</h4>
+                  <p>lofi-Girl</p>
+                </div>
               </div>
+              <p>Study</p>
+              <p>Feb 19, 2025</p>
+              <p>10:00</p>
             </div>
-            <p>White Noise</p>
-            <p>Feb 19, 2025</p>
-            <p>10:00</p>
-          </div>
-          <div class="songs">
-            <p>11</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/p4royal.jpg" /></div>
-              <div class="txtcon3">
-                <h4>No More What Ifs</h4>
-                <p>Lyn</p>
+            <div class="songs">
+              <p>3</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p4img.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Rivers in the Desert</h4>
+                  <p>Lyn</p>
+                </div>
               </div>
+              <p>Persona 5</p>
+              <p>Feb 19, 2025</p>
+              <p>5:15</p>
             </div>
-            <p>Royal OSTs</p>
-            <p>Feb 19, 2025</p>
-            <p>4:00</p>
-          </div>
-          <div class="songs">
-            <p>12</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/brunomars.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Knocked Out Of Heaven</h4>
-                <p>Bruno Mars</p>
+            <div class="songs">
+              <p>4</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p4royal.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Take Over</h4>
+                  <p>Lyn</p>
+                </div>
               </div>
+              <p>Persona 5</p>
+              <p>Feb 19, 2025</p>
+              <p>3:46</p>
             </div>
-            <p>Bruno</p>
-            <p>Feb 12, 2025</p>
-            <p>3:54</p>
-          </div>
-          <div class="songs">
-            <p>13</p>
-            <div class="r">
-              <div class="square4"><img src="Assets/ladygg.jpg" /></div>
-              <div class="txtcon3">
-                <h4>Die With A Smile</h4>
-                <p>Bruno Mars Ft. Lady Gaga</p>
+            <div class="songs">
+              <p>5</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p3img.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>It's Going Down</h4>
+                  <p>Azumi</p>
+                </div>
               </div>
+              <p>Persona 3 Reload</p>
+              <p>Feb 17, 2025</p>
+              <p>3:06</p>
             </div>
-            <p>Bruno</p>
-            <p>Feb 19, 2025</p>
-            <p>4:12</p>
+            <div class="songs">
+              <p>6</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p4img.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Phantom</h4>
+                  <p>ATLUS Sound Team</p>
+                </div>
+              </div>
+              <p>Sound Team</p>
+              <p>Feb 18, 2025</p>
+              <p>2:18</p>
+            </div>
+            <div class="songs">
+              <p>7</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/pgolden.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Reach Out To The Truth</h4>
+                  <p>Shihoko Hirata</p>
+                </div>
+              </div>
+              <p>Persona 4</p>
+              <p>Feb 16, 2025</p>
+              <p>2:31</p>
+            </div>
+            <div class="songs">
+              <p>8</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p3img.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Color your Night</h4>
+                  <p>Azumi</p>
+                </div>
+              </div>
+              <p>Persona 3 Reload</p>
+              <p>Date added</p>
+              <p>3:47</p>
+            </div>
+            <div class="songs">
+              <p>9</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p4img.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>My Homie</h4>
+                  <p>ATLUS Sound Team</p>
+                </div>
+              </div>
+              <p>Sound Team</p>
+              <p>Feb 15, 2025</p>
+              <p>3:22</p>
+            </div>
+            <div class="songs">
+              <p>10</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/lofi.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>White Noise</h4>
+                  <p>lofi-Girl</p>
+                </div>
+              </div>
+              <p>White Noise</p>
+              <p>Feb 19, 2025</p>
+              <p>10:00</p>
+            </div>
+            <div class="songs">
+              <p>11</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/p4royal.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>No More What Ifs</h4>
+                  <p>Lyn</p>
+                </div>
+              </div>
+              <p>Royal OSTs</p>
+              <p>Feb 19, 2025</p>
+              <p>4:00</p>
+            </div>
+            <div class="songs">
+              <p>12</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/brunomars.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Knocked Out Of Heaven</h4>
+                  <p>Bruno Mars</p>
+                </div>
+              </div>
+              <p>Bruno</p>
+              <p>Feb 12, 2025</p>
+              <p>3:54</p>
+            </div>
+            <div class="songs">
+              <p>13</p>
+              <div class="r">
+                <div class="square4"><img src="Assets/ladygg.jpg" /></div>
+                <div class="txtcon3">
+                  <h4>Die With A Smile</h4>
+                  <p>Bruno Mars Ft. Lady Gaga</p>
+                </div>
+              </div>
+              <p>Bruno</p>
+              <p>Feb 19, 2025</p>
+              <p>4:12</p>
+            </div>
           </div>
-        </div>
-        <div class="recommend">
-          <h2>Recommended Songs</h2>
-          <p>Go online to see recommended songs</p>
+          <div class="recommend">
+            <h2>Recommended Songs</h2>
+            <p>Go online to see recommended songs</p>
+          </div>
         </div>
       </div>
     </section>
@@ -465,6 +507,7 @@
         </div>
       </div>
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
 </html>

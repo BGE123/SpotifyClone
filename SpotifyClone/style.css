@@ -38,10 +38,10 @@ body {
 }
 .top {
   background: var(--primarycolour);
-  padding: 1rem 1rem 1.3rem 1rem;
+  padding: 0 1rem;
   justify-content: space-between;
-  height: 4.2rem;
   width: 100%;
+  margin-top: 0.3%;
 }
 .fa-spotify {
   color: white;
@@ -941,9 +941,6 @@ body {
   .row {
     width: 20rem;
   }
-  .top {
-    height: 3.8rem;
-  }
 }
 @media screen and (max-width: 430px) {
   #progress {
@@ -954,7 +951,6 @@ body {
   }
   .top {
     background: linear-gradient(360deg, #7d252cbf 17%, #0f0f10 100%);
-    height: 3.5rem;
   }
   .songs {
     font-size: 12px;
